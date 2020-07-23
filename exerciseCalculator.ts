@@ -91,3 +91,5 @@ try {
 } catch (e) {
   console.log('Oh my there was an error: ', e.message)
 }
+
+export { calculateExercises }
