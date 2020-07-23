@@ -17,13 +17,14 @@ const parseArguments = (args: Array<string>): BmiValues => {
       height: Number(args[2]),
       weight: Number(args[3]),
     }
+  } else {
+    throw new Error('Provided values were not numbers!')
   }
 }
 
 const caclulateBmi = (height: number, weight: number): string => {
   const bmiHeight = (height / 100) ** 2
   const bmi = weight / bmiHeight
-  console.log(bmiHeight)
 
   if (bmi <= 18.5) {
     return 'Underweight'
@@ -31,7 +32,7 @@ const caclulateBmi = (height: number, weight: number): string => {
     return 'Normal (healthy weight)'
   } else if (bmi > 25 && bmi <= 30) {
     return 'Overweight'
-  } else if (bmi > 30) {
+  } else {
     return 'Obese'
   }
 }
@@ -42,3 +43,5 @@ try {
 } catch (e) {
   console.log('Oh my there was an error: ', e.message)
 }
+
+export { caclulateBmi }
