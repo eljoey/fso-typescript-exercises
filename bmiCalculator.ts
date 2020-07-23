@@ -3,12 +3,27 @@
 // overweight 25 to 30
 // obese > 30
 
-type Height = number
-type Weight = number
+interface BmiValues {
+  height: number
+  weight: number
+}
 
-const caclulateBmi = (height: Height, weight: Weight): string => {
-  const bmiHeight = height / 100
-  const bmi = weight / (bmiHeight ^ 2)
+const parseArguments = (args: Array<string>): BmiValues => {
+  if (args.length < 4) throw new Error('Not enough arguments')
+  if (args.length > 4) throw new Error('Too many arguments')
+
+  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+    return {
+      height: Number(args[2]),
+      weight: Number(args[3]),
+    }
+  }
+}
+
+const caclulateBmi = (height: number, weight: number): string => {
+  const bmiHeight = (height / 100) ** 2
+  const bmi = weight / bmiHeight
+  console.log(bmiHeight)
 
   if (bmi <= 18.5) {
     return 'Underweight'
@@ -21,4 +36,9 @@ const caclulateBmi = (height: Height, weight: Weight): string => {
   }
 }
 
-console.log(caclulateBmi(180, 74))
+try {
+  const { height, weight } = parseArguments(process.argv)
+  console.log(caclulateBmi(height, weight))
+} catch (e) {
+  console.log('Oh my there was an error: ', e.message)
+}
